@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Socket.IO NODEJS</title>
+</head>
+<body>
+    <ul id="message"></ul>
+
+    <form>
+        <input type="text" id="text_box"><button> Kirim </button>
+    </form>
+
+    <script src="/socket.io/socket.io.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script>
+        var socket = io();
+        
+        $('form').submit(function(){
+            socket.emit('newMessage', $('#text_box').val())
+            $('#text_box').val('');
+            return false;
+        })
+
+        //menampilkan di frontend
+        socket.on('newMessage',function(msg){
+            $('#message').append($('<li>').text (msg))
+        })
+    </script>
+
+</body>
+</html>
